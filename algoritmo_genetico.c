@@ -1,10 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "algoritmo_genetico.h"
+#include "calculos.h"
 
-int main(){
-    
-    //função para ler entrada de dados de input.dat
-    int ler_dados_arquivo(arquivo){
-        
-    }
-}
+// funções do algoritmo genético
+
+
