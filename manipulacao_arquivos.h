@@ -10,13 +10,13 @@ typedef struct ponto{
 } Ponto;
 
 typedef struct dadosEntrada{
-    int m;
     int n;
+    int m;
     int G;
-    Ponto *pontos ;
+    Ponto *pontos;
 } DadosEntrada;
 
-void ler_arquivo();
-void gravar_arquivo();
+int ler_arquivo(const char *input, DadosEntrada *dadosEntrada);
+void gravar_arquivo(const char *output);
 
 #endif /* MANIULACAO_ARQUIVOS_H */
