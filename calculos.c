@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "manipulacao_arquivos.h"
+#include "algoritmo_genetico.h"
 
 // função para realizar os cálculos do algoritmo genético
 float funcao_reta(float a, float b, float x){
@@ -27,4 +29,9 @@ float calcular_erro_MAE_individuo(DadosEntrada *dadosEntrada, Individuo *populac
 
     float media_erro_reta = erro_total / dadosEntrada->n;
     return media_erro_reta;
+}
+
+void calcular_fitness(float erro_medio, Individuo *populacao, int j){
+    float fit = 1.0f / (1.0f + erro_medio);
+    populacao[j].fitness = fit;
 }
