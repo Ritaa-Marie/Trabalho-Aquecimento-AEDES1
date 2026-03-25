@@ -31,6 +31,7 @@ float calcular_erro_MAE_individuo(DadosEntrada *dadosEntrada, Individuo *populac
     return media_erro_reta;
 }
 
+
 void calcular_fitness(float erro_medio, Individuo *populacao, int j){
     float fit = 1.0f / (1.0f + erro_medio);
     populacao[j].fitness = fit;

@@ -13,9 +13,11 @@ typedef struct individuo {
 }Individuo;
 
 void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada);
-void avaliar_individuo();
+void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao);
+void selecionar_melhores_individuos(DadosEntrada *dadosEntrada, Individuo *populacao, Individuo melhores[2]);
 void crossover();
 void mutacao();
+void algoritmo_gene();
 
 
 #endif /* ALGORITMO_GENETICO_H */

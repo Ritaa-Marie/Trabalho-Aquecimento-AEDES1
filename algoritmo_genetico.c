@@ -33,10 +33,10 @@ void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada){
     if(diferencaX == 0.0){
         diferencaX = 1;
     }
-
     if(diferencaY == 0.0){
         diferencaY = 1;
     }
+    
     float limiteA = diferencaY / diferencaX;
 
     for(int i=0;i<dadosEntrada->m;i++){
@@ -47,4 +47,35 @@ void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada){
         populacao[i].b = menorY + num_aleatorio * diferencaY;
         populacao[i].fitness = NAN;
     }
+}
+
+
+void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao){
+    for(int i=0;i<dadosEntrada->m;i++){
+        float erro_individual = calcular_erro_MAE_individuo(dadosEntrada, populacao, i);
+        calcular_fitness(erro_individual, populacao, i);
+    }
+}
+
+
+void selecionar_melhores_individuos(DadosEntrada *dadosEntrada, Individuo *populacao, Individuo melhores[2]){
+    Individuo primeiroMelhor = populacao[0];
+    Individuo segundoMelhor = populacao[0];
+
+    float maior1 = populacao[0].fitness;
+    float maior2 = populacao[0].fitness;
+
+   for(int i=0;i<dadosEntrada->m;i++){
+        if(maior1 < populacao[i].fitness){
+            maior2 = maior1;
+            segundoMelhor = primeiroMelhor;
+            maior1 = populacao[i].fitness;
+            primeiroMelhor = populacao[i];
+        } else if(maior2 < populacao[i].fitness){
+            maior2 = populacao[i].fitness;
+            segundoMelhor = populacao[i];
+        }
+   }
+   melhores[0] = primeiroMelhor;
+   melhores[1] = segundoMelhor;
 }
