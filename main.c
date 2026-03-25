@@ -24,7 +24,7 @@ int main(){
 
     srand(SEED);
     gerar_populacao_inicial(populacao, &dadosEntrada);
-
+    
     
 
     //chama as funções para rodar o algoritmo

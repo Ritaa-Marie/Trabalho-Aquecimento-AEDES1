@@ -93,3 +93,13 @@ int selecionar_pior_individuo(DadosEntrada *dadosEntrada, Individuo *populacao){
     }
     return posicao;
 }
+
+
+void crossover(Individuo melhores[2], Individuo *novoIndividuo){
+    float novo_a = (melhores[0].a + melhores[1].a) / 2;
+    float novo_b = (melhores[0].b + melhores[1].b) / 2;
+
+    novoIndividuo->a = novo_a;
+    novoIndividuo->b = novo_b;
+    novoIndividuo->fitness = NAN;
+}
