@@ -15,6 +15,7 @@ typedef struct individuo {
 void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada);
 void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao);
 void selecionar_melhores_individuos(DadosEntrada *dadosEntrada, Individuo *populacao, Individuo melhores[2]);
+int selecionar_pior_individuo(DadosEntrada *dadosEntrada, Individuo *populacao);
 void crossover();
 void mutacao();
 void algoritmo_gene();

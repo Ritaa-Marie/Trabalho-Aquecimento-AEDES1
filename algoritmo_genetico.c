@@ -36,7 +36,7 @@ void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada){
     if(diferencaY == 0.0){
         diferencaY = 1;
     }
-    
+
     float limiteA = diferencaY / diferencaX;
 
     for(int i=0;i<dadosEntrada->m;i++){
@@ -78,4 +78,18 @@ void selecionar_melhores_individuos(DadosEntrada *dadosEntrada, Individuo *popul
    }
    melhores[0] = primeiroMelhor;
    melhores[1] = segundoMelhor;
+}
+
+
+int selecionar_pior_individuo(DadosEntrada *dadosEntrada, Individuo *populacao){
+    float menor = populacao[0].fitness;
+    int posicao = 0;
+
+    for(int i=0;i<dadosEntrada->m;i++){
+        if(menor > populacao[i].fitness){
+            menor = populacao[i].fitness;
+            posicao = i;
+        }
+    }
+    return posicao;
 }
