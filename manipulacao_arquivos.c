@@ -13,13 +13,13 @@ int ler_arquivo(const char *input, DadosEntrada *dadosEntrada){
     FILE *arquivo;
     arquivo = fopen(input, "r");
     if(arquivo == NULL){
-        printf("Erro ao abrir o arquivo de entrada de dados.");
+        printf("\nErro ao abrir o arquivo de entrada de dados.\n");
         return 1;
     }
 
     if(fscanf(arquivo, "%d %d %d", &dadosEntrada->n, &dadosEntrada->m, &dadosEntrada->G) != 3 || 
      dadosEntrada->n <= 0 || dadosEntrada->m <= 0 || dadosEntrada->G <= 0){
-        printf("Erro ao ler a primeira linha do arquivo de entrada de dados.");
+        printf("\nErro ao ler a primeira linha do arquivo de entrada de dados.\n");
         fclose(arquivo);
         return 1;
     }
@@ -27,7 +27,7 @@ int ler_arquivo(const char *input, DadosEntrada *dadosEntrada){
 
     dadosEntrada->pontos = malloc(dadosEntrada->n * sizeof(Ponto));
     if(dadosEntrada->pontos == NULL){
-        printf("Erro ao alocar memória para armazenar os pontos da entrada de dados.");
+        printf("\nErro ao alocar memória para armazenar os pontos da entrada de dados.\n");
         fclose(arquivo);
         return 1;
     }
@@ -41,7 +41,7 @@ int ler_arquivo(const char *input, DadosEntrada *dadosEntrada){
     }
 
     if(dadosEntrada->n != pontos_lidos){
-        printf("Erro ao ler os pontos do arquivo de entrada de dados.");
+        printf("\nErro ao ler os pontos do arquivo de entrada de dados.\n");
         fclose(arquivo);
         free(dadosEntrada->pontos);
         dadosEntrada->pontos = NULL;

@@ -11,14 +11,26 @@ int main(){
     if (leituraDados == 0){
         printf("%f %f", dadosEntrada.pontos[3].x, dadosEntrada.pontos[3].y); //teste
         printf("%d", dadosEntrada.n);
-        return 0;
     } else {
         return 1;
     }
+
+    Individuo *populacao;
+    populacao = malloc(dadosEntrada.m * sizeof(Individuo));
+    if(populacao == NULL){
+        printf("\nErro ao alocar memória para armazenar a população inicial.\n");
+        return 1;
+    }
+
+    srand(SEED);
+    gerar_populacao_inicial(populacao, &dadosEntrada);
+
     
-    // alocação dinâmica do vetor da população
+
     //chama as funções para rodar o algoritmo
     
     free(dadosEntrada.pontos);
+    free(populacao);
+
     return 0;
 }
