@@ -4,6 +4,47 @@
 #include "algoritmo_genetico.h"
 
 // função para realizar os cálculos do algoritmo genético
+
+
+void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB){
+    // intervalo definido de acordo com os pontos de entrada
+    float maiorX = dadosEntrada->pontos[0].x, menorX = dadosEntrada->pontos[0].x;
+    float maiorY = dadosEntrada->pontos[0].y, menorY = dadosEntrada->pontos[0].y;
+
+    for(int i=1;i<dadosEntrada->n;i++){
+        if(dadosEntrada->pontos[i].x > maiorX){
+            maiorX = dadosEntrada->pontos[i].x;
+        }
+        if(dadosEntrada->pontos[i].x < menorX){
+            menorX = dadosEntrada->pontos[i].x;
+        }
+        if(dadosEntrada->pontos[i].y > maiorY){
+            maiorY = dadosEntrada->pontos[i].y;
+        }
+        if(dadosEntrada->pontos[i].y < menorY){
+            menorY = dadosEntrada->pontos[i].y;
+        }
+    }
+    
+    float diferencaX = maiorX - menorX;
+    float diferencaY = maiorY - menorY;
+
+    if(diferencaX == 0.0){
+        diferencaX = 1;
+    }
+    if(diferencaY == 0.0){
+        diferencaY = 1;
+    }
+
+    limitesAB->menorX = menorX;
+    limitesAB->menorY = menorY;
+    limitesAB->maiorX = maiorX;
+    limitesAB->maiorY = maiorY;
+    limitesAB->diferencaX = diferencaX;
+    limitesAB->diferencaY = diferencaY;
+}
+
+
 float funcao_reta(float a, float b, float x){
     float y = (a * x) + b;
     return y;
@@ -39,6 +80,7 @@ void calcular_fitness(float erro_medio, Individuo *populacao, int j){
 
 
 void ordenar_individuos_fitness(DadosEntrada *dadosEntrada, Individuo *populacao, Individuo *individuos_ordenados){
+    //ordenação crescente
     for(int i=0;i<dadosEntrada->m;i++){
         individuos_ordenados[i] = populacao[i];
     }

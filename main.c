@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "estruturas.h"
+#include "calculos.h"
 #include "algoritmo_genetico.h"
 #include "manipulacao_arquivos.h"
+
 
 int main(){
 
@@ -23,8 +26,16 @@ int main(){
     }
 
     srand(SEED);
-    gerar_populacao_inicial(populacao, &dadosEntrada);
-    
+    Limites limitesAB;
+    definir_limites_a_b(&dadosEntrada, &limitesAB);
+    gerar_populacao_inicial(populacao, &dadosEntrada, &limitesAB);
+    for(int i=0;i<dadosEntrada.m;i++){
+        printf("%f %f\n", populacao[i].a, populacao[i].b);
+    }
+    printf("teste");
+    printf("%d\n", rand());
+    printf("%d\n", rand());
+
     
 
     //chama as funções para rodar o algoritmo
