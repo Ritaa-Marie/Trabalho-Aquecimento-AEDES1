@@ -29,6 +29,7 @@ typedef struct limites {
     float menorY;
     float diferencaX;
     float diferencaY;
+    float limiteA;
 } Limites;
 
 #endif /* ESTRUTURAS_H */

@@ -9,8 +9,8 @@
 
 void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB);
 void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao);
-void crossover(Individuo melhores[2], Individuo *novoIndividuo);
-void mutacao();
+void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross);
+void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB);
 void algoritmo_gene();
 
 

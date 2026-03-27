@@ -36,12 +36,15 @@ void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB){
         diferencaY = 1;
     }
 
+    float limiteA = diferencaY / diferencaX;
+
     limitesAB->menorX = menorX;
     limitesAB->menorY = menorY;
     limitesAB->maiorX = maiorX;
     limitesAB->maiorY = maiorY;
     limitesAB->diferencaX = diferencaX;
     limitesAB->diferencaY = diferencaY;
+    limitesAB->limiteA = limiteA;
 }
 
 

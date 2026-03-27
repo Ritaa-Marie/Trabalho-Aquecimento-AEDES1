@@ -8,11 +8,9 @@
 // funções do algoritmo genético
 
 void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB){
-    float limiteA = limitesAB->diferencaY / limitesAB->diferencaX;
-
     for(int i=0;i<dadosEntrada->m;i++){
         float num_aleatorio = (float) rand() / RAND_MAX;
-        populacao[i].a = -(limiteA) + num_aleatorio * (2 * limiteA);
+        populacao[i].a = -(limitesAB->limiteA) + num_aleatorio * (2 * limitesAB->limiteA);
 
         num_aleatorio = (float) rand() / RAND_MAX;
         populacao[i].b = limitesAB->menorY + num_aleatorio * limitesAB->diferencaY;
@@ -29,11 +27,33 @@ void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao){
 }
 
 
-void crossover(Individuo melhores[2], Individuo *novoIndividuo){
-    float novo_a = (melhores[0].a + melhores[1].a) / 2;
-    float novo_b = (melhores[0].b + melhores[1].b) / 2;
+void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross){
+    float novo_a = (pai1.a + pai2.a) / 2;
+    float novo_b = (pai1.b + pai2.b) / 2;
 
     novoIndividuo->a = novo_a;
     novoIndividuo->b = novo_b;
     novoIndividuo->fitness = NAN;
 }
+
+void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
+    float novo_a = bom.a;
+    float novo_b = bom.b;
+
+    if(aleatoriedade <= 0.5){
+        float limA = limitesAB->limiteA * 0.05;
+        float mutacao = (((float) rand() / RAND_MAX) - 0.5) * limA;
+        novo_a += mutacao;
+    
+    } else {
+        float limB = limitesAB->diferencaY * 0.05;
+        float mutacao = (((float) rand() / RAND_MAX) - 0.5) * limB;
+        novo_b += mutacao;
+            
+    }
+
+    novoIndividuoMut->a = novo_a;
+    novoIndividuoMut->b = novo_b;
+    novoIndividuoMut->fitness = NAN;
+}
+
