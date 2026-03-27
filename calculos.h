@@ -9,5 +9,6 @@
 float funcao_reta(float a, float b, float x);
 float calcular_erro_MAE_individuo(DadosEntrada *dadosEntradaentrada, Individuo *populacao, int j);
 void calcular_fitness(float erro_medio, Individuo *populacao, int j);
+void ordenar_individuos_fitness(DadosEntrada *dadosEntrada, Individuo *populacao, Individuo *individuos_ordenados);
 
 #endif /* CALCULOS_H */

@@ -36,3 +36,21 @@ void calcular_fitness(float erro_medio, Individuo *populacao, int j){
     float fit = 1.0f / (1.0f + erro_medio);
     populacao[j].fitness = fit;
 }
+
+
+void ordenar_individuos_fitness(DadosEntrada *dadosEntrada, Individuo *populacao, Individuo *individuos_ordenados){
+    for(int i=0;i<dadosEntrada->m;i++){
+        individuos_ordenados[i] = populacao[i];
+    }
+
+    for(int i=0;i<dadosEntrada->m - 1;i++){
+        for(int j=0;j<dadosEntrada->m - 1 - i;j++){
+            if(individuos_ordenados[j].fitness > individuos_ordenados[j+1].fitness){
+                Individuo ordenar = individuos_ordenados[j];
+                individuos_ordenados[j] = individuos_ordenados[j+1];
+                individuos_ordenados[j+1] = ordenar;
+            }
+        }
+    }
+}
+
