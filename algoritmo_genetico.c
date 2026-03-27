@@ -27,13 +27,23 @@ void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao){
 }
 
 
-void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross){
-    float novo_a = (pai1.a + pai2.a) / 2;
-    float novo_b = (pai1.b + pai2.b) / 2;
+void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, float aleatoriedade){
+    float novo_a, novo_b;
 
-    novoIndividuo->a = novo_a;
-    novoIndividuo->b = novo_b;
-    novoIndividuo->fitness = NAN;
+    if(aleatoriedade <= 0.33){
+        novo_a = pai1.a;
+        novo_b = pai2.b;
+    }  else if(aleatoriedade <= 0.66) {
+        novo_a = pai2.a;
+        novo_b = pai1.b;
+    } else {
+        novo_a = (pai1.a + pai2.a) /2;
+        novo_b = (pai1.b + pai2.b) /2;
+    }
+     
+    novoIndividuoCross->a = novo_a;
+    novoIndividuoCross->b = novo_b;
+    novoIndividuoCross->fitness = NAN;
 }
 
 void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
