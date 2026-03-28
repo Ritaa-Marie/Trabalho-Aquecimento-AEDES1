@@ -35,7 +35,7 @@ int main(){
     printf("teste");
     printf("%d\n", rand());
     printf("%d\n", rand());
-
+    evoluir_individuos(populacao, &dadosEntrada, &limitesAB);
     
 
     //chama as funções para rodar o algoritmo

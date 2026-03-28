@@ -9,9 +9,10 @@
 
 void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB);
 void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao);
-void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross);
+void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, float aleatoriedade);
 void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB);
-void algoritmo_gene();
+int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB);
+void algoritmo_gene(Individuo *populacao);
 
 
 #endif /* ALGORITMO_GENETICO_H */
