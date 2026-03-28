@@ -67,32 +67,13 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
     novoIndividuoMut->fitness = NAN;
 }
 
-int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB){
-    // ordenar indivíduos
-    Individuo *individuos_ordenados;
-    individuos_ordenados = malloc(dadosEntrada->m * sizeof(Individuo));
-    if (individuos_ordenados == NULL){
-        printf("\nErro na alocação de memória para armazenar os indivíduos ordenados.\n");
-        return 1;
-    }
-    populacao[0].fitness = 0.256;
-    populacao[1].fitness = 1.456;
-    populacao[2].fitness = 7.89;
-    populacao[3].fitness = 7.89;
-    populacao[4].fitness = 7.89;
-    populacao[5].fitness = 7.89;
-    populacao[6].fitness = 7.89;
-    populacao[7].fitness = 0.123;
-    ordenar_individuos_fitness(dadosEntrada, populacao, individuos_ordenados);
-
+int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
     // selecionar os 50% piores
     int num_individuosPiores = dadosEntrada->m / 2;
     int num_individuosMelhores = dadosEntrada->m - num_individuosPiores;
-    printf("\npiores e melhores: %d, %d", num_individuosPiores, num_individuosMelhores);
     
     int num_individuosCross = num_individuosPiores * 0.7;
     int num_individuosMut = num_individuosPiores - num_individuosCross;
-    printf("\nCross e mut: %d, %d \n", num_individuosCross, num_individuosMut);
 
     for(int i=0;i<num_individuosCross;i++){
         Individuo novoIndividuoCross, pai1, pai2;
@@ -106,7 +87,7 @@ int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites
         pai1 = individuos_ordenados[posicao1];
         pai2 = individuos_ordenados[posicao2];
         crossover(pai1, pai2, &novoIndividuoCross, aleatoriedade);
-        individuos_ordenados[i] = novoIndividuoCross;
+        nova_pop[i] = novoIndividuoCross;
     }
 
     int posicaoAnterior = 0;
@@ -121,15 +102,48 @@ int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites
         posicaoAnterior = posicao1;
         bom = individuos_ordenados[posicao1];
         mutacao(bom, &novoIndividuoMut, aleatoriedade, limitesAB);
-        individuos_ordenados[i] = novoIndividuoMut;
-        printf("novo: %f %f %f\n", novoIndividuoMut.a, novoIndividuoMut.b, novoIndividuoMut.fitness);
+        nova_pop[i] = novoIndividuoMut;
     }
 
-    for(int i=0;i<dadosEntrada->m;i++){
-        printf("individo_ordenado: (%f %f %f)    ", individuos_ordenados[i].a, individuos_ordenados[i].b, individuos_ordenados[i].fitness);
-        printf("individo_pop: (%f %f %f)\n", populacao[i].a, populacao[i].b, populacao[i].fitness);
+    for(int i=num_individuosPiores;i<dadosEntrada->m;i++){
+        nova_pop[i] = individuos_ordenados[i];
+        nova_pop[i].fitness = NAN;
     }
+    return 0;
+}
+
+int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB){
+    for(int i=0;i<dadosEntrada->G;i++){
+        avaliar_individuos(dadosEntrada, populacao);
+
+        // ordenar indivíduos
+        Individuo *individuos_ordenados;
+        individuos_ordenados = malloc(dadosEntrada->m * sizeof(Individuo));
+        if (individuos_ordenados == NULL){
+            printf("\nErro na alocação de memória para armazenar os indivíduos ordenados.\n");
+            return 1;
+        }
     
+        ordenar_individuos_fitness(dadosEntrada, populacao, individuos_ordenados);
+        int m=dadosEntrada->m -1;
 
+        Individuo *nova_pop;
+        nova_pop = malloc(dadosEntrada->m * sizeof(Individuo));
+        //printf("Pop %d: individo melhor: (%f %f %f)\n", i+1, individuos_ordenados[m].a, individuos_ordenados[m].b, individuos_ordenados[m].fitness);
+        int evoluiu = evoluir_individuos(populacao, dadosEntrada, limitesAB, individuos_ordenados, nova_pop);
+        if (evoluiu == 1){
+            return 1;
+        }
+
+        printf("\npop %d: ", 1+i);
+        for(int i=0;i<dadosEntrada->m;i++){
+            populacao[i] = nova_pop[i];
+        }
+        free(individuos_ordenados);
+        for(int i=0;i<dadosEntrada->m;i++){
+            printf("individo: (%2.f %2.f %2.f)  ", populacao[i].a, populacao[i].b, populacao[i].fitness);
+        }
+
+    }
     return 0;
 }

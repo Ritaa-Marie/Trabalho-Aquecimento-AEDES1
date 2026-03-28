@@ -11,12 +11,9 @@ int main(){
     DadosEntrada dadosEntrada;
 
     int leituraDados = ler_arquivo("input.dat", &dadosEntrada);
-    if (leituraDados == 0){
-        printf("%f %f", dadosEntrada.pontos[3].x, dadosEntrada.pontos[3].y); //teste
-        printf("%d", dadosEntrada.n);
-    } else {
+    if (leituraDados == 1){
         return 1;
-    }
+    } 
 
     Individuo *populacao;
     populacao = malloc(dadosEntrada.m * sizeof(Individuo));
@@ -29,13 +26,8 @@ int main(){
     Limites limitesAB;
     definir_limites_a_b(&dadosEntrada, &limitesAB);
     gerar_populacao_inicial(populacao, &dadosEntrada, &limitesAB);
-    for(int i=0;i<dadosEntrada.m;i++){
-        printf("%f %f\n", populacao[i].a, populacao[i].b);
-    }
-    printf("teste");
-    printf("%d\n", rand());
-    printf("%d\n", rand());
-    evoluir_individuos(populacao, &dadosEntrada, &limitesAB);
+    rodar_algoritmo_genetico(populacao, &dadosEntrada, &limitesAB);
+     
     
 
     //chama as funções para rodar o algoritmo
