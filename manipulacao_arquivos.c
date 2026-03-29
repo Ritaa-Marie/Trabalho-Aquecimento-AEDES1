@@ -54,7 +54,9 @@ int ler_arquivo(const char *input, DadosEntrada *dadosEntrada){
 }
 
 
-void gravar_arquivo(const char *output){
+void gravar_arquivo(GravarDados *d){
     // permite registrar todas as informações a respeito do fitness, a e b, erro e geração
-    printf("oi");
+    FILE *arq = fopen("output.dat", "a");
+    fprintf(arq, "GERAÇÃO %d:  (a = %f, b = %f)   | ERRO: %f   | MELHOR FITNESS: %f\n", d->geracao, d->a, d->b, d->erro, d->fitness);
+    fclose(arq);
 }

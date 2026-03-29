@@ -32,4 +32,12 @@ typedef struct limites {
     float limiteA;
 } Limites;
 
+typedef struct gravarDados{
+    int geracao;
+    float fitness;
+    float erro;
+    float a;
+    float b;
+} GravarDados;
+
 #endif /* ESTRUTURAS_H */

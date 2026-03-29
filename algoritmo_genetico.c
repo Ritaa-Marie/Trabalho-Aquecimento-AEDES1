@@ -180,12 +180,18 @@ int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, L
         }
     
         ordenar_individuos_fitness(dadosEntrada, populacao, individuos_ordenados);
-        int m=dadosEntrada->m -1;
+        int melhor = dadosEntrada->m - 1;
 
         Individuo *nova_pop;
         nova_pop = malloc(dadosEntrada->m * sizeof(Individuo));
-        //printf("Pop %d: individo melhor: (%f %f %f)\n", i+1, individuos_ordenados[m].a, individuos_ordenados[m].b, individuos_ordenados[m].fitness);
-        int melhor = dadosEntrada->m - 1;
+        
+        GravarDados gravarDados;
+        gravarDados.geracao = i + 1;
+        gravarDados.a = individuos_ordenados[melhor].a;
+        gravarDados.b = individuos_ordenados[melhor].b;
+        gravarDados.fitness = individuos_ordenados[melhor].fitness;
+        gravarDados.erro = (1 / individuos_ordenados[melhor].fitness) -1;
+        gravar_arquivo(&gravarDados);
         printf("\nMelhor %d: (%f %f %f)\n", i+1,
             individuos_ordenados[melhor].a,
             individuos_ordenados[melhor].b,

@@ -8,6 +8,6 @@
 
 
 int ler_arquivo(const char *input, DadosEntrada *dadosEntrada);
-void gravar_arquivo(const char *output);
+void gravar_arquivo(GravarDados *gravarDados);
 
 #endif /* MANIULACAO_ARQUIVOS_H */
