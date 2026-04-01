@@ -10,6 +10,8 @@ int main(){
 
     DadosEntrada dadosEntrada;
 
+    int dadosApagados = apagar_dados_arquivo("output.dat");
+
     int leituraDados = ler_arquivo("input.dat", &dadosEntrada);
     if (leituraDados == 1){
         return 1;

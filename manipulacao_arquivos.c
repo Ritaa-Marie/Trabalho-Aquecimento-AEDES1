@@ -60,3 +60,17 @@ void gravar_arquivo(GravarDados *d){
     fprintf(arq, "GERAÇÃO %d:  (a = %f, b = %f)   | ERRO: %f   | MELHOR FITNESS: %f\n", d->geracao, d->a, d->b, d->erro, d->fitness);
     fclose(arq);
 }
+
+int apagar_dados_arquivo(const char *nome_arquivo){
+    FILE *arq = fopen(nome_arquivo, "w");
+
+    if(arq == NULL){
+        printf("Erro ao limpar arquivo.");
+        return 1;
+    }
+
+    fprintf(arq, "");
+    fclose(arq);
+
+    return 0;
+}
