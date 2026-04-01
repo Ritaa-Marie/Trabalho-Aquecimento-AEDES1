@@ -9,5 +9,6 @@
 
 int ler_arquivo(const char *input, DadosEntrada *dadosEntrada);
 void gravar_arquivo(GravarDados *gravarDados);
+void apagar_dados_arquivo();
 
 #endif /* MANIULACAO_ARQUIVOS_H */

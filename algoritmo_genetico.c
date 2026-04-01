@@ -43,20 +43,6 @@ void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, fl
     novoIndividuoCross->fitness = NAN;
 }
 
-void crossover1(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross){
-    float aleatorio = (float) rand() / RAND_MAX;
-
-    novoIndividuoCross->a = aleatorio * pai1.a + (1 - aleatorio) * pai2.a;
-    novoIndividuoCross->b = aleatorio * pai1.b + (1 - aleatorio) * pai2.b;
-    novoIndividuoCross->fitness = NAN;
-}
-
-void crossover2(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, float aleatoriedade){
-    novoIndividuoCross->a = (pai1.a +  pai2.a)/2;
-    novoIndividuoCross->b = (pai1.b + pai2.b)/2;
-    novoIndividuoCross->fitness = NAN;
-}
-
 
 void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
     float novo_a = bom.a;
@@ -68,7 +54,7 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
         novo_a += mutacao;
     
     } else {
-        float limB = limitesAB->diferencaY * 0.5;
+        float limB = limitesAB->diferencaY * 0.3;
         float mutacao = (((float) rand() / RAND_MAX) - 0.5) * limB;
         novo_b += mutacao;
             
@@ -79,48 +65,6 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
     novoIndividuoMut->fitness = NAN;
 }
 
-void mutacao1(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
-    float novo_a = bom.a;
-    float novo_b = bom.b;
-
-    float limA = limitesAB->limiteA * 0.8;
-    float limB = limitesAB->diferencaY * 0.8;
-
-    // mutação independente em A
-    if(((float) rand() / RAND_MAX) < 0.5){
-        float mutacaoA = (((float) rand() / RAND_MAX) - 0.5) * limA;
-        novo_a += mutacaoA;
-    }
-
-    // mutação independente em B
-    if(((float) rand() / RAND_MAX) < 0.5){
-        float mutacaoB = (((float) rand() / RAND_MAX) - 0.5) * limB;
-        novo_b += mutacaoB;
-    }
-
-    novoIndividuoMut->a = novo_a;
-    novoIndividuoMut->b = novo_b;
-    novoIndividuoMut->fitness = NAN;
-}
-
-//mutando a e b
-void mutacao2(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
-    float novo_a = bom.a;
-    float novo_b = bom.b;
-    
-        float limA = limitesAB->limiteA * 0.8;
-        float mutacao = (((float) rand() / RAND_MAX) - 0.5) * limA;
-        novo_a += mutacao;
-        float limB = limitesAB->diferencaY * 0.8;
-        mutacao = (((float) rand() / RAND_MAX) - 0.5) * limB;
-        novo_b += mutacao;
-            
-    
-
-    novoIndividuoMut->a = novo_a;
-    novoIndividuoMut->b = novo_b;
-    novoIndividuoMut->fitness = NAN;
-}
 
 int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
     // selecionar os 50% piores
@@ -141,7 +85,7 @@ int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites
         } while(posicao1 == posicao2);
         pai1 = individuos_ordenados[posicao1];
         pai2 = individuos_ordenados[posicao2];
-        crossover2(pai1, pai2, &novoIndividuoCross, aleatoriedade);
+        crossover(pai1, pai2, &novoIndividuoCross, aleatoriedade);
         nova_pop[i] = novoIndividuoCross;
     }
 
@@ -156,7 +100,7 @@ int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites
         } while(posicao1 == posicaoAnterior);
         posicaoAnterior = posicao1;
         bom = individuos_ordenados[posicao1];
-        mutacao2(bom, &novoIndividuoMut, aleatoriedade, limitesAB);
+        mutacao(bom, &novoIndividuoMut, aleatoriedade, limitesAB);
         nova_pop[i] = novoIndividuoMut;
     }
 
@@ -196,7 +140,7 @@ int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, L
             individuos_ordenados[melhor].a,
             individuos_ordenados[melhor].b,
             individuos_ordenados[melhor].fitness);
-        int evoluiu = evoluir_individuos1(populacao, dadosEntrada, limitesAB, individuos_ordenados, nova_pop);
+        int evoluiu = evoluir_individuos(populacao, dadosEntrada, limitesAB, individuos_ordenados, nova_pop);
         if (evoluiu == 1){
             return 1;
         }
