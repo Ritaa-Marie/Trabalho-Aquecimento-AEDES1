@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "manipulacao_arquivos.h"
 #include "algoritmo_genetico.h"
 
@@ -46,7 +47,6 @@ void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB){
     limitesAB->diferencaY = diferencaY;
     limitesAB->limiteA = limiteA;
 }
-
 
 float funcao_reta(float a, float b, float x){
     float y = (a * x) + b;
