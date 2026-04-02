@@ -1,15 +1,20 @@
-CC = gcc
-CFLAGS = -Wall -Wextra
-SRCS = src/main.c src/calculos.c src/algoritmo_genetico.c src/manipulacao_arquivos.c
-TARGET = programa
+CC       := gcc
+CFLAGS   := -Wall -Wextra -Werror
+LDFLAGS  := -lm
+BUILD    := ./build
+TARGET   := programa
+SRC      := $(wildcard src/*.c)
 
-all: $(TARGET)
+all: $(BUILD)/$(TARGET)
 
-$(TARGET): $(SRCS)
-	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
+$(BUILD)/$(TARGET): $(SRC)
+	@mkdir -p $(BUILD)
+	$(CC) $(CFLAGS) $(LDFLAGS) -o $(BUILD)/$(TARGET) $(SRC)
+
+.PHONY: all clean run
 
 clean:
-	rm -f $(TARGET)
+	-@rm -rvf $(BUILD)
 
-run: $(TARGET)
-	./$(TARGET)
+run: $(BUILD)/$(TARGET)
+	./$(BUILD)/$(TARGET)
