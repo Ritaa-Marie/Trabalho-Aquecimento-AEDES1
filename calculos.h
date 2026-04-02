@@ -8,6 +8,7 @@
 
 
 void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB);
+void definir_limites_a_b_teste(DadosEntrada *dadosEntrada, Limites *limitesAB);
 float funcao_reta(float a, float b, float x);
 float calcular_erro_MAE_individuo(DadosEntrada *dadosEntradaentrada, Individuo *populacao, int j);
 void calcular_fitness(float erro_medio, Individuo *populacao, int j);

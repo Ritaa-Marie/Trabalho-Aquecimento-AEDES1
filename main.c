@@ -26,7 +26,7 @@ int main(){
 
     srand(SEED);
     Limites limitesAB;
-    definir_limites_a_b(&dadosEntrada, &limitesAB);
+    definir_limites_a_b_teste(&dadosEntrada, &limitesAB);
     gerar_populacao_inicial(populacao, &dadosEntrada, &limitesAB);
     rodar_algoritmo_genetico(populacao, &dadosEntrada, &limitesAB);
      

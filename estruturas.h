@@ -30,6 +30,11 @@ typedef struct limites {
     float diferencaX;
     float diferencaY;
     float limiteA;
+    float menorB;
+    float maiorB;
+    float diferencaB;
+    float menorA;
+    float maiorA;
 } Limites;
 
 typedef struct gravarDados{

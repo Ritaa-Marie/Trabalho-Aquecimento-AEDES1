@@ -13,7 +13,7 @@ void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada, L
         populacao[i].a = -(limitesAB->limiteA) + num_aleatorio * (2 * limitesAB->limiteA);
 
         num_aleatorio = (float) rand() / RAND_MAX;
-        populacao[i].b = limitesAB->menorY + num_aleatorio * limitesAB->diferencaY;
+        populacao[i].b = limitesAB->menorB + num_aleatorio * limitesAB->diferencaB;
         populacao[i].fitness = NAN;
     }
 }
@@ -54,10 +54,47 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
         novo_a += mutacao;
     
     } else {
-        float limB = limitesAB->diferencaY * 0.3;
+        float limB = limitesAB->diferencaB * 0.5;
         float mutacao = (((float) rand() / RAND_MAX) - 0.5) * limB;
         novo_b += mutacao;
             
+    }
+
+    novoIndividuoMut->a = novo_a;
+    novoIndividuoMut->b = novo_b;
+    novoIndividuoMut->fitness = NAN;
+}
+
+void mutacaoT(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
+    float novo_a = bom.a;
+    float novo_b = bom.b;
+
+    novoIndividuoMut->a = bom.a;
+    novoIndividuoMut->b = bom.b;
+
+    if(aleatoriedade < 0.5f){
+        float rangeA = (limitesAB->maiorA - limitesAB->menorA);
+        float mutacaoA = (((float) rand() / RAND_MAX) - 0.5f) * rangeA * 0.1f;
+        novo_a += mutacaoA;
+
+        if(novo_a < limitesAB->menorA){
+            novo_a = limitesAB->menorA;
+        } 
+        if(novo_a > limitesAB->maiorA){
+            novo_a = limitesAB->maiorA;
+        } 
+
+    } else {
+        float rangeB = limitesAB->diferencaB;
+        float mutacaoB = (((float) rand() / RAND_MAX) - 0.5f) * rangeB * 0.1f;
+        novo_b += mutacaoB;
+
+        if(novo_b < limitesAB->menorB){
+            novo_b = limitesAB->menorB;
+        } 
+        if(novo_b > limitesAB->maiorB){
+            novo_b = limitesAB->maiorB;
+        } 
     }
 
     novoIndividuoMut->a = novo_a;
@@ -100,7 +137,7 @@ int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites
         } while(posicao1 == posicaoAnterior);
         posicaoAnterior = posicao1;
         bom = individuos_ordenados[posicao1];
-        mutacao(bom, &novoIndividuoMut, aleatoriedade, limitesAB);
+        mutacaoT(bom, &novoIndividuoMut, aleatoriedade, limitesAB);
         nova_pop[i] = novoIndividuoMut;
     }
 
