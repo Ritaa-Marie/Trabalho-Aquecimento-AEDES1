@@ -13,7 +13,6 @@ void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, fl
 void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB);
 void mutacaoT(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB);
 int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop);
-int evoluir_individuos1(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop);
 int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB);
 
 
