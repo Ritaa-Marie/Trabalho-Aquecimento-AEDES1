@@ -7,9 +7,14 @@
 
 
 void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB){
+    for(int i = 0; i < dadosEntrada->m; i++){
+        populacao[i].a = 0;
+        populacao[i].b = 0;
+        populacao[i].fitness = 0;
+    }
     for(int i=0;i<dadosEntrada->m;i++){
         float num_aleatorio = (float) rand() / RAND_MAX;
-        populacao[i].a = -(limitesAB->limiteA) + num_aleatorio * (2 * limitesAB->limiteA);
+        populacao[i].a = -(limitesAB->menorA) + num_aleatorio * (/*2 * limitesAB->limiteA*/ limitesAB->maiorA - limitesAB->menorA);
 
         num_aleatorio = (float) rand() / RAND_MAX;
         populacao[i].b = limitesAB->menorB + num_aleatorio * limitesAB->diferencaB;
@@ -64,7 +69,6 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
         if(novo_a > limitesAB->maiorA){
             novo_a = limitesAB->maiorA;
         } 
-
     } else {
         float limB = limitesAB->diferencaB;
         float mutacaoB = (((float) rand() / RAND_MAX) - 0.5f) * limB * 0.3f;
@@ -108,7 +112,6 @@ void evoluir_individuos(DadosEntrada *dadosEntrada, Limites *limitesAB, Individu
     for(int i=num_individuosCross;i<num_individuosPiores;i++){
         Individuo novoIndividuoMut, bom;
         float aleatoriedade = (float) rand() / RAND_MAX;
-
         int posicao1;
         do {
             posicao1 = num_individuosPiores + rand() % (dadosEntrada->m - num_individuosPiores);
@@ -144,10 +147,6 @@ void rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, 
         }
         
         gravar_arquivo(&gravarDados);
-        printf("\nMelhor %d: (%f %f %f)\n", i+1,
-            individuos_ordenados[melhor].a,
-            individuos_ordenados[melhor].b,
-            individuos_ordenados[melhor].fitness);
         evoluir_individuos(dadosEntrada, limitesAB, individuos_ordenados, nova_pop);
 
         for(int j=0;j<dadosEntrada->m;j++){
