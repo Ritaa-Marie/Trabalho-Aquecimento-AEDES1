@@ -29,6 +29,9 @@ void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao){
 
 void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, float aleatoriedade){
     float novo_a, novo_b;
+    novoIndividuoCross->a = 0;
+    novoIndividuoCross->b = 0;
+    novoIndividuoCross->fitness = 0;
 
     if(aleatoriedade <= 0.5){
         novo_a = pai1.a;
@@ -47,8 +50,9 @@ void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, fl
 void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
     float novo_a = bom.a;
     float novo_b = bom.b;
-    novoIndividuoMut->a = bom.a;
-    novoIndividuoMut->b = bom.b;
+    novoIndividuoMut->a = 0;
+    novoIndividuoMut->b = 0;
+    novoIndividuoMut->fitness = 0;
 
     if(aleatoriedade < 0.5f){
         float limA = (limitesAB->maiorA - limitesAB->menorA);
