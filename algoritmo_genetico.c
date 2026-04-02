@@ -47,34 +47,12 @@ void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, fl
 void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
     float novo_a = bom.a;
     float novo_b = bom.b;
-    
-    if(aleatoriedade <= 0.5){
-        float limA = limitesAB->limiteA * 0.3;
-        float mutacao = (((float) rand() / RAND_MAX) - 0.5) * limA;
-        novo_a += mutacao;
-    
-    } else {
-        float limB = limitesAB->diferencaB * 0.5;
-        float mutacao = (((float) rand() / RAND_MAX) - 0.5) * limB;
-        novo_b += mutacao;
-            
-    }
-
-    novoIndividuoMut->a = novo_a;
-    novoIndividuoMut->b = novo_b;
-    novoIndividuoMut->fitness = NAN;
-}
-
-void mutacaoT(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB){
-    float novo_a = bom.a;
-    float novo_b = bom.b;
-
     novoIndividuoMut->a = bom.a;
     novoIndividuoMut->b = bom.b;
 
     if(aleatoriedade < 0.5f){
-        float rangeA = (limitesAB->maiorA - limitesAB->menorA);
-        float mutacaoA = (((float) rand() / RAND_MAX) - 0.5f) * rangeA * 0.1f;
+        float limA = (limitesAB->maiorA - limitesAB->menorA);
+        float mutacaoA = (((float) rand() / RAND_MAX) - 0.5f) * limA * 0.1f;
         novo_a += mutacaoA;
 
         if(novo_a < limitesAB->menorA){
@@ -85,8 +63,8 @@ void mutacaoT(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, L
         } 
 
     } else {
-        float rangeB = limitesAB->diferencaB;
-        float mutacaoB = (((float) rand() / RAND_MAX) - 0.5f) * rangeB * 0.1f;
+        float limB = limitesAB->diferencaB;
+        float mutacaoB = (((float) rand() / RAND_MAX) - 0.5f) * limB * 0.1f;
         novo_b += mutacaoB;
 
         if(novo_b < limitesAB->menorB){
@@ -137,7 +115,7 @@ int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites
         } while(posicao1 == posicaoAnterior);
         posicaoAnterior = posicao1;
         bom = individuos_ordenados[posicao1];
-        mutacaoT(bom, &novoIndividuoMut, aleatoriedade, limitesAB);
+        mutacao(bom, &novoIndividuoMut, aleatoriedade, limitesAB);
         nova_pop[i] = novoIndividuoMut;
     }
 

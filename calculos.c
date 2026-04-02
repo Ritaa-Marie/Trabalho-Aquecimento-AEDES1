@@ -6,56 +6,8 @@
 
 // função para realizar os cálculos do algoritmo genético
 
-
 void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB){
     // intervalo definido de acordo com os pontos de entrada
-    float maiorX = dadosEntrada->pontos[0].x, menorX = dadosEntrada->pontos[0].x;
-    float maiorY = dadosEntrada->pontos[0].y, menorY = dadosEntrada->pontos[0].y;
-
-    for(int i=1;i<dadosEntrada->n;i++){
-        if(dadosEntrada->pontos[i].x > maiorX){
-            maiorX = dadosEntrada->pontos[i].x;
-        }
-        if(dadosEntrada->pontos[i].x < menorX){
-            menorX = dadosEntrada->pontos[i].x;
-        }
-        if(dadosEntrada->pontos[i].y > maiorY){
-            maiorY = dadosEntrada->pontos[i].y;
-        }
-        if(dadosEntrada->pontos[i].y < menorY){
-            menorY = dadosEntrada->pontos[i].y;
-        }
-    }
-    
-    float diferencaX = maiorX - menorX;
-    float diferencaY = maiorY - menorY;
-
-    float centroB = 0.0f;
-    float faixaB = 25.0f;
-
-    if(diferencaX == 0.0){
-        diferencaX = 1;
-    }
-    if(diferencaY == 0.0){
-        diferencaY = 1;
-    }
-
-    float limiteA = diferencaY / diferencaX;
-
-    limitesAB->menorX = menorX;
-    limitesAB->menorY = menorY;
-    limitesAB->maiorX = maiorX;
-    limitesAB->maiorY = maiorY;
-    limitesAB->diferencaX = diferencaX;
-    limitesAB->diferencaY = diferencaY;
-    limitesAB->limiteA = limiteA;
-    limitesAB->menorB = centroB - faixaB;
-    limitesAB->maiorB = centroB + faixaB;
-    limitesAB->diferencaB = limitesAB->maiorB - limitesAB->menorB;
-    
-}
-
-void definir_limites_a_b_teste(DadosEntrada *dadosEntrada, Limites *limitesAB){
     float maiorX = dadosEntrada->pontos[0].x, menorX = dadosEntrada->pontos[0].x;
     float maiorY = dadosEntrada->pontos[0].y, menorY = dadosEntrada->pontos[0].y;
 
@@ -80,11 +32,9 @@ void definir_limites_a_b_teste(DadosEntrada *dadosEntrada, Limites *limitesAB){
 
     limitesAB->menorA = -limiteA * 2.0f;
     limitesAB->maiorA =  limiteA * 2.0f;
-
     limitesAB->menorB = menorY;
     limitesAB->maiorB = maiorY;
     limitesAB->diferencaB = limitesAB->maiorB - limitesAB->menorB;
-
     limitesAB->menorX = menorX;
     limitesAB->maiorX = maiorX;
     limitesAB->menorY = menorY;
