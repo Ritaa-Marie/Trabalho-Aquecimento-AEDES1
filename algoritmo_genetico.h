@@ -3,16 +3,14 @@
 #include "estruturas.h"
 #define SEED 73
 
-// todas as funções que envolvem o algoritmo genético estarão aqui, desconsidere o retorno e os parâmetros, a ideia é apenas
-// organizar o que ficará em cada módulo, no desenvolvimento esses aspectos serão resolvidos.
-
+// funções do algoritmo genético
 
 void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB);
 void avaliar_individuos(DadosEntrada *dadosEntrada, Individuo *populacao);
 void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, float aleatoriedade);
 void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Limites *limitesAB);
-int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop);
-int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB);
+int evoluir_individuos(DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop);
+int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop);
 
 
 #endif /* ALGORITMO_GENETICO_H */

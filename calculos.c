@@ -4,7 +4,6 @@
 #include "manipulacao_arquivos.h"
 #include "algoritmo_genetico.h"
 
-// função para realizar os cálculos do algoritmo genético
 
 void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB){
     // intervalo definido de acordo com os pontos de entrada
@@ -21,11 +20,11 @@ void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB){
     float diferencaX = maiorX - menorX;
     float diferencaY = maiorY - menorY;
 
-    if(diferencaX == 0.0){
-        diferencaX = 1.0;
+    if(diferencaX == 0.0f){
+        diferencaX = 1.0f;
     }
-    if(diferencaY == 0.0){
-        diferencaY = 1.0;
+    if(diferencaY == 0.0f){
+        diferencaY = 1.0f;
     } 
 
     float limiteA = diferencaY / diferencaX;
@@ -43,6 +42,7 @@ void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB){
     limitesAB->diferencaY = diferencaY;
 }
 
+
 float funcao_reta(float a, float b, float x){
     float y = (a * x) + b;
     return y;
@@ -53,16 +53,20 @@ float calcular_erro_MAE_individuo(DadosEntrada *dadosEntrada, Individuo *populac
     float a = populacao[j].a;
     float b = populacao[j].b;
 
+    if(isnan(a) || isnan(b)){
+        return INFINITY;
+    }
+
     float erro_total = 0.0;
 
     for(int i=0;i<dadosEntrada->n;i++){
         float y_funcao = funcao_reta(a, b, dadosEntrada->pontos[i].x);
+        
+        if(isnan(y_funcao)){
+            return INFINITY;
+        }
         float erro = y_funcao - dadosEntrada->pontos[i].y;
-
-        if(erro < 0){
-            erro *= -1;
-        } 
-        erro_total += erro; 
+        erro_total += fabs(erro); 
     }
 
     float media_erro_reta = erro_total / dadosEntrada->n;
@@ -71,6 +75,10 @@ float calcular_erro_MAE_individuo(DadosEntrada *dadosEntrada, Individuo *populac
 
 
 void calcular_fitness(float erro_medio, Individuo *populacao, int j){
+    if (isnan(erro_medio) || isinf(erro_medio)){
+        populacao[j].fitness = 0.0f;
+        return;
+    }
     float fit = 1.0f / (1.0f + erro_medio);
     populacao[j].fitness = fit;
 }
@@ -79,6 +87,9 @@ void calcular_fitness(float erro_medio, Individuo *populacao, int j){
 void ordenar_individuos_fitness(DadosEntrada *dadosEntrada, Individuo *populacao, Individuo *individuos_ordenados){
     //ordenação crescente
     for(int i=0;i<dadosEntrada->m;i++){
+        if(isnan(populacao[i].fitness)){
+            populacao[i].fitness = 0.0f;
+        }
         individuos_ordenados[i] = populacao[i];
     }
 

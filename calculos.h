@@ -2,9 +2,7 @@
 #define CALCULOS_H
 #include "estruturas.h"
 
-// todas as funções que envolvem cálculos estarão aqui, desconsidere o retorno e os parâmetros, a ideia é apenas
-// organizar o que ficará em cada módulo, no desenvolvimento esses aspectos serão resolvidos.
-
+// função para realizar os cálculos e lógicas do algoritmo genético
 
 void definir_limites_a_b(DadosEntrada *dadosEntrada, Limites *limitesAB);
 float funcao_reta(float a, float b, float x);

@@ -5,7 +5,6 @@
 #include "calculos.h"
 #include "manipulacao_arquivos.h"
 
-// funções do algoritmo genético
 
 void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB){
     for(int i=0;i<dadosEntrada->m;i++){
@@ -36,7 +35,7 @@ void crossover(Individuo pai1, Individuo pai2, Individuo *novoIndividuoCross, fl
     if(aleatoriedade <= 0.5){
         novo_a = pai1.a;
         novo_b = pai2.b;
-    }  else if(aleatoriedade > 0.5) {
+    }  else {
         novo_a = pai2.a;
         novo_b = pai1.b;
     }
@@ -54,7 +53,7 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
     novoIndividuoMut->b = 0;
     novoIndividuoMut->fitness = 0;
 
-    if(aleatoriedade < 0.5f){
+    if(aleatoriedade <= 0.5f){
         float limA = (limitesAB->maiorA - limitesAB->menorA);
         float mutacaoA = (((float) rand() / RAND_MAX) - 0.5f) * limA * 0.1f;
         novo_a += mutacaoA;
@@ -85,13 +84,10 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
 }
 
 
-int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
+int evoluir_individuos(DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
     // selecionar os 50% piores
     int num_individuosPiores = dadosEntrada->m / 2;
-    int num_individuosMelhores = dadosEntrada->m - num_individuosPiores;
-    
-    int num_individuosCross = num_individuosPiores * 0.3;
-    int num_individuosMut = num_individuosPiores - num_individuosCross;
+    int num_individuosCross = (int)(num_individuosPiores * 0.3f);
 
     for(int i=0;i<num_individuosCross;i++){
         Individuo novoIndividuoCross, pai1, pai2;
@@ -130,45 +126,37 @@ int evoluir_individuos(Individuo *populacao, DadosEntrada *dadosEntrada, Limites
     return 0;
 }
 
-int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB){
+int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
     for(int i=0;i<dadosEntrada->G;i++){
         avaliar_individuos(dadosEntrada, populacao);
-
-        // ordenar indivíduos
-        Individuo *individuos_ordenados;
-        individuos_ordenados = malloc(dadosEntrada->m * sizeof(Individuo));
-        if (individuos_ordenados == NULL){
-            printf("\nErro na alocação de memória para armazenar os indivíduos ordenados.\n");
-            return 1;
-        }
-    
         ordenar_individuos_fitness(dadosEntrada, populacao, individuos_ordenados);
-        int melhor = dadosEntrada->m - 1;
-
-        Individuo *nova_pop;
-        nova_pop = malloc(dadosEntrada->m * sizeof(Individuo));
         
+        // gravar dados no arquivo
+        int melhor = dadosEntrada->m - 1;
         GravarDados gravarDados;
         gravarDados.geracao = i + 1;
         gravarDados.a = individuos_ordenados[melhor].a;
         gravarDados.b = individuos_ordenados[melhor].b;
         gravarDados.fitness = individuos_ordenados[melhor].fitness;
-        gravarDados.erro = (1 / individuos_ordenados[melhor].fitness) -1;
+        if(individuos_ordenados[melhor].fitness > 0){
+            gravarDados.erro = (1.0f / individuos_ordenados[melhor].fitness) -1.0f;
+        } else {
+            gravarDados.erro = INFINITY;
+        }
+        
         gravar_arquivo(&gravarDados);
         printf("\nMelhor %d: (%f %f %f)\n", i+1,
             individuos_ordenados[melhor].a,
             individuos_ordenados[melhor].b,
             individuos_ordenados[melhor].fitness);
-        int evoluiu = evoluir_individuos(populacao, dadosEntrada, limitesAB, individuos_ordenados, nova_pop);
+        int evoluiu = evoluir_individuos(dadosEntrada, limitesAB, individuos_ordenados, nova_pop);
         if (evoluiu == 1){
             return 1;
         }
 
-        for(int i=0;i<dadosEntrada->m;i++){
-            populacao[i] = nova_pop[i];
+        for(int j=0;j<dadosEntrada->m;j++){
+            populacao[j] = nova_pop[j];
         }
-        free(individuos_ordenados);
-
     }
     return 0;
 }
