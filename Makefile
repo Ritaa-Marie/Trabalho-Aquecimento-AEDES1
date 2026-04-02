@@ -1,13 +1,12 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -o
-
-SRCS = main.c calculos.c algoritmo_genetico.c manipulacao_arquivos.c
+CFLAGS = -Wall -Wextra
+SRCS = src/main.c src/calculos.c src/algoritmo_genetico.c src/manipulacao_arquivos.c
 TARGET = programa
 
 all: $(TARGET)
 
 $(TARGET): $(SRCS)
-	$(CC) $(CFLAGS) $(TARGET) $(SRCS)
+	$(CC) $(CFLAGS) -o $(TARGET) $(SRCS)
 
 clean:
 	rm -f $(TARGET)

@@ -1,0 +1,8 @@
+# Executável
+programa
+
+# VSCode
+.vscode/
+
+# Build
+.build/
