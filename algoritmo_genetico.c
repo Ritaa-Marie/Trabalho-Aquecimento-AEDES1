@@ -84,7 +84,7 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
 }
 
 
-int evoluir_individuos(DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
+void evoluir_individuos(DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
     // selecionar os 50% piores
     int num_individuosPiores = dadosEntrada->m / 2;
     int num_individuosCross = (int)(num_individuosPiores * 0.3f);
@@ -123,10 +123,9 @@ int evoluir_individuos(DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo
         nova_pop[i] = individuos_ordenados[i];
         nova_pop[i].fitness = NAN;
     }
-    return 0;
 }
 
-int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
+void rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, Limites *limitesAB, Individuo *individuos_ordenados, Individuo *nova_pop){
     for(int i=0;i<dadosEntrada->G;i++){
         avaliar_individuos(dadosEntrada, populacao);
         ordenar_individuos_fitness(dadosEntrada, populacao, individuos_ordenados);
@@ -149,14 +148,10 @@ int rodar_algoritmo_genetico(Individuo *populacao, DadosEntrada *dadosEntrada, L
             individuos_ordenados[melhor].a,
             individuos_ordenados[melhor].b,
             individuos_ordenados[melhor].fitness);
-        int evoluiu = evoluir_individuos(dadosEntrada, limitesAB, individuos_ordenados, nova_pop);
-        if (evoluiu == 1){
-            return 1;
-        }
+        evoluir_individuos(dadosEntrada, limitesAB, individuos_ordenados, nova_pop);
 
         for(int j=0;j<dadosEntrada->m;j++){
             populacao[j] = nova_pop[j];
         }
     }
-    return 0;
 }
