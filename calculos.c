@@ -109,11 +109,10 @@ float calcular_erro_MAE_individuo(DadosEntrada *dadosEntrada, Individuo *populac
         float y_funcao = funcao_reta(a, b, dadosEntrada->pontos[i].x);
         float erro = y_funcao - dadosEntrada->pontos[i].y;
 
-        /*if(erro < 0){
+        if(erro < 0){
             erro *= -1;
-        }*/
-
-        erro_total += erro * erro; // testando o quadrático
+        } 
+        erro_total += erro; 
     }
 
     float media_erro_reta = erro_total / dadosEntrada->n;
