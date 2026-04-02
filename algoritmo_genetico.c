@@ -55,7 +55,7 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
 
     if(aleatoriedade <= 0.5f){
         float limA = (limitesAB->maiorA - limitesAB->menorA);
-        float mutacaoA = (((float) rand() / RAND_MAX) - 0.5f) * limA * 0.1f;
+        float mutacaoA = (((float) rand() / RAND_MAX) - 0.5f) * limA * 0.3f;
         novo_a += mutacaoA;
 
         if(novo_a < limitesAB->menorA){
@@ -67,7 +67,7 @@ void mutacao(Individuo bom, Individuo *novoIndividuoMut, float aleatoriedade, Li
 
     } else {
         float limB = limitesAB->diferencaB;
-        float mutacaoB = (((float) rand() / RAND_MAX) - 0.5f) * limB * 0.1f;
+        float mutacaoB = (((float) rand() / RAND_MAX) - 0.5f) * limB * 0.3f;
         novo_b += mutacaoB;
 
         if(novo_b < limitesAB->menorB){

@@ -53,7 +53,7 @@ float calcular_erro_MAE_individuo(DadosEntrada *dadosEntrada, Individuo *populac
     float a = populacao[j].a;
     float b = populacao[j].b;
 
-    if(isnan(a) || isnan(b)){
+    if(isnan(a) || isnan(b) || isinf(a) || isinf(b)){
         return INFINITY;
     }
 
@@ -61,8 +61,8 @@ float calcular_erro_MAE_individuo(DadosEntrada *dadosEntrada, Individuo *populac
 
     for(int i=0;i<dadosEntrada->n;i++){
         float y_funcao = funcao_reta(a, b, dadosEntrada->pontos[i].x);
-        
-        if(isnan(y_funcao)){
+
+        if(isnan(y_funcao) || isinf(y_funcao)){
             return INFINITY;
         }
         float erro = y_funcao - dadosEntrada->pontos[i].y;
