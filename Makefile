@@ -18,3 +18,6 @@ clean:
 
 run: $(BUILD)/$(TARGET)
 	./$(BUILD)/$(TARGET)
+
+compilar: clean $(BUILD)/$(TARGET)
+	$(BUILD)/$(TARGET)
