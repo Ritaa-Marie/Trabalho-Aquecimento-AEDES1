@@ -32,6 +32,7 @@ Os coeficientes **a** (inclinação) e **b** (intercepto) representam os genes d
 ## 📂 Organização no repositório
 ```
 Trabalho-Aquecimento-AEDES1/
+├── build/
 ├── src/
 │   ├── algoritmo_genetico.h
 │   ├── algoritmo_genetico.c
@@ -289,7 +290,7 @@ Funções:
 ### 📄 main.c
 
 Função: 
-### - [`main (Tipo: int)`](https://github.com/Ritaa-Marie/Trabalho-Aquecimento-AEDES1/blob/df6b4aa41d6411a52f663820a1185e48144b414b/src/main.c)
+### - [`main (Tipo: int)`](https://github.com/Ritaa-Marie/Trabalho-Aquecimento-AEDES1/blob/main/src/main.c#L1-L56)
 
 > Ponto de entrada do programa, responsável por orquestrar todas as etapas do algoritmo genético, desde a leitura dos dados até a liberação da memória.
 
@@ -374,7 +375,7 @@ Para o desenvolvimento do código, foram utilizadas as seguintes ferramentas:
 
 ### ✅ Pré-requisitos
 >[!NOTE]
->Para garantir o funcionamento correto dos comandos do [Makefile], é recomendado o uso de uma distribuição Linux ou do Windows Subsystem for Linux (WSL), ambientes nos quais o shell/bash está disponível.
+>Para garantir o funcionamento correto dos comandos do **Makefile**, é recomendado o uso de uma distribuição Linux ou do Windows Subsystem for Linux (WSL), ambientes nos quais o shell/bash está disponível.
 
 **Instalar dependências**: <br><br>
 Inicialmente, em ambiente shell, garanta que os seguintes comandos foram executados: 
@@ -611,7 +612,7 @@ A cada geração, são executadas as seguintes etapas em `rodar_algoritmo_geneti
 | **Loop principal** | $O(G \times (m \times n + m^2))$ |
 | **Total** | $O(G \cdot (m \cdot n + m^2))$ |
 
-A análise de complexidade do algoritmo indica que o custo computacional total é definido pela expressão $O(G \cdot (m \cdot n + m^2))$, o que reflete uma dependência direta entre o número de gerações ($G$) e o tamanho da população ($m$). Observa-se que, enquanto as funções de inicialização e mutação possuem baixo impacto, o processo de avaliação dos indivíduos ($m \cdot n$) e a ordenação via Bubble Sort ($m^2$) atuam como os principais gargalos do sistema. 
+A análise de complexidade do algoritmo indica que o custo computacional total é definido pela expressão $O(G \cdot (m \cdot n + m^2))$, o que reflete uma dependência direta entre o número de gerações (`G`) e o tamanho da população (`m`). Observa-se que, enquanto as funções de inicialização e mutação possuem baixo impacto, o processo de avaliação dos indivíduos ($m \cdot n$) e a ordenação via Bubble Sort ($m^2$) atuam como os principais gargalos do sistema. 
 
 ## 💭 Melhorias
 Apesar de o algoritmo apresentar bons resultados, algumas melhorias podem ser propostas para torná-lo mais eficiente e robusto. Um dos principais pontos é a substituição do método de ordenação atual (Bubble Sort) por algoritmos mais eficientes, reduzindo a complexidade total. Além disso, pode-se aprimorar o processo de mutação, tornando-o adaptativo ao longo das gerações, de forma a equilibrar melhor exploração e refinamento da busca. Também seria interessante utilizar diferentes funções de erro (como erro quadrático médio) ou tratar melhor a presença de outliers nos dados. Por fim, ajustes dinâmicos nos parâmetros do algoritmo, como taxa de crossover e mutação, podem contribuir para uma convergência mais rápida e estável.
