@@ -12,9 +12,10 @@ void gerar_populacao_inicial(Individuo *populacao, DadosEntrada *dadosEntrada, L
         populacao[i].b = 0;
         populacao[i].fitness = 0;
     }
+    
     for(int i=0;i<dadosEntrada->m;i++){
         float num_aleatorio = (float) rand() / RAND_MAX;
-        populacao[i].a = -(limitesAB->menorA) + num_aleatorio * (/*2 * limitesAB->limiteA*/ limitesAB->maiorA - limitesAB->menorA);
+        populacao[i].a = -(limitesAB->menorA) + num_aleatorio * (limitesAB->maiorA - limitesAB->menorA);
 
         num_aleatorio = (float) rand() / RAND_MAX;
         populacao[i].b = limitesAB->menorB + num_aleatorio * limitesAB->diferencaB;
