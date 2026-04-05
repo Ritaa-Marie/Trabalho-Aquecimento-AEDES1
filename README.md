@@ -630,4 +630,4 @@ Autora: Rita Mariê Amaral Siqueira
 
 - Email: (ritamariecajuru@gmail.com)
 - GitHub: [Ritaa-Marie](https://github.com/Ritaa-Marie)
-- LinkedIn: [Rita Mariê](https://www.linkedin.com/in/rita-mari%C3%AA-amaral-siqueira-567b74357/)
+- Linkedin: [Rita Mariê](https://www.linkedin.com/in/rita-mari%C3%AA-amaral-siqueira-567b74357/)
