@@ -29,6 +29,39 @@ que se ajuste da melhor forma possível ao conjunto de pontos fornecidos como en
 
 Os coeficientes **a** (inclinação) e **b** (intercepto) representam os genes de cada indivíduo da população. O objetivo do algoritmo é evoluir esses coeficientes ao longo das gerações, minimizando o erro médio absoluto (MAE) entre os valores estimados pela reta e os pontos reais fornecidos.
 
+## 📂 Organização no repositório
+```
+Trabalho-Aquecimento-AEDES1/
+├── build/
+├── include/
+│   ├── algoritmo_genetico.h
+│   ├── manipulacao_arquivos.h
+│   ├── estruturas.h
+│   ├── calculos.h
+├── src/
+│   ├── algoritmo_genetico.c
+│   ├── manipulacao_arquivos.c
+│   ├── calculos.c
+│   ├── main.c
+├── img/
+|   ├── algoritmo_g.png
+│   ├── caso1.png
+│   ├── caso2.png
+│   ├── caso3.png
+│   ├── caso4.png
+├── input.dat
+├── output.dat
+├── Makefile
+├── .gitignore
+├── readme.md
+```
+
+## 🗃️ Bibliotecas utilizadas
+Para o desenvolvimento do projeto, foram utilizadas as seguintes bibliotecas da linguagem C:
+  - **`stdio.h`** — entrada e saída padrão
+  - **`stdlib.h`** — alocação de memória, geração de números aleatórios (rand(), srand())
+  - **`math.h`** — funções matemáticas (fabs, isnan, isinf)
+
 ## 📥 Entrada de dados
 Formato esperado do arquivo de entrada (`input.dat`):
 ```
@@ -258,7 +291,7 @@ Funções:
 ### 📄 main.c
 
 Função: 
-### - [`main (Tipo: int)`](https://github.com/Ritaa-Marie/Trabalho-Aquecimento-AEDES1/blob/df6b4aa41d6411a52f663820a1185e48144b414b/src/main.c)
+### - [`main (Tipo: int)`](https://github.com/Ritaa-Marie/Trabalho-Aquecimento-AEDES1/blob/main/src/main.c#L1-L56)
 
 > Ponto de entrada do programa, responsável por orquestrar todas as etapas do algoritmo genético, desde a leitura dos dados até a liberação da memória.
 
@@ -326,36 +359,7 @@ Onde:
 - **ERRO** — erro calculado pelo MAE
 - **FITNESS** — melhor fitness da geração
 
-## 📂 Organização no repositório
-```
-Trabalho-Aquecimento-AEDES1/
-├── src/
-│   ├── algoritmo_genetico.h
-│   ├── algoritmo_genetico.c
-│   ├── manipulacao_arquivos.h
-│   ├── manipulacao_arquivos.c
-│   ├── calculos.h
-│   ├── calculos.c
-│   ├── main.c
-│   ├── estruturas.h
-├── img/
-|   ├── algoritmo_g.png
-│   ├── caso1.png
-│   ├── caso2.png
-│   ├── caso3.png
-│   ├── caso4.png
-├── input.dat
-├── output.dat
-├── Makefile
-├── .gitignore
-├── readme.md
-```
 
-## Bibliotecas utilizadas
-Para o desenvolvimento do projeto, foram utilizadas as seguintes bibliotecas da linguagem C:
-  - **`stdio.h`** — entrada e saída padrão
-  - **`stdlib.h`** — alocação de memória, geração de números aleatórios (rand(), srand())
-  - **`math.h`** — funções matemáticas (fabs, isnan, isinf)
 
 ## 👩🏽‍💻 Ambiente de criação e de testes
 Para o desenvolvimento do código, foram utilizadas as seguintes ferramentas:
@@ -372,7 +376,7 @@ Para o desenvolvimento do código, foram utilizadas as seguintes ferramentas:
 
 ### ✅ Pré-requisitos
 >[!NOTE]
->Para garantir o funcionamento correto dos comandos do [Makefile], é recomendado o uso de uma distribuição Linux ou do Windows Subsystem for Linux (WSL), ambientes nos quais o shell/bash está disponível.
+>Para garantir o funcionamento correto dos comandos do **Makefile**, é recomendado o uso de uma distribuição Linux ou do Windows Subsystem for Linux (WSL), ambientes nos quais o shell/bash está disponível.
 
 **Instalar dependências**: <br><br>
 Inicialmente, em ambiente shell, garanta que os seguintes comandos foram executados: 
@@ -609,14 +613,14 @@ A cada geração, são executadas as seguintes etapas em `rodar_algoritmo_geneti
 | **Loop principal** | $O(G \times (m \times n + m^2))$ |
 | **Total** | $O(G \cdot (m \cdot n + m^2))$ |
 
-A análise de complexidade do algoritmo indica que o custo computacional total é definido pela expressão $O(G \cdot (m \cdot n + m^2))$, o que reflete uma dependência direta entre o número de gerações ($G$) e o tamanho da população ($m$). Observa-se que, enquanto as funções de inicialização e mutação possuem baixo impacto, o processo de avaliação dos indivíduos ($m \cdot n$) e a ordenação via Bubble Sort ($m^2$) atuam como os principais gargalos do sistema. 
+A análise de complexidade do algoritmo indica que o custo computacional total é definido pela expressão $O(G \cdot (m \cdot n + m^2))$, o que reflete uma dependência direta entre o número de gerações (`G`) e o tamanho da população (`m`). Observa-se que, enquanto as funções de inicialização e mutação possuem baixo impacto, o processo de avaliação dos indivíduos ($m \cdot n$) e a ordenação via Bubble Sort ($m^2$) atuam como os principais gargalos do sistema. 
 
 ## 💭 Melhorias
 Apesar de o algoritmo apresentar bons resultados, algumas melhorias podem ser propostas para torná-lo mais eficiente e robusto. Um dos principais pontos é a substituição do método de ordenação atual (Bubble Sort) por algoritmos mais eficientes, reduzindo a complexidade total. Além disso, pode-se aprimorar o processo de mutação, tornando-o adaptativo ao longo das gerações, de forma a equilibrar melhor exploração e refinamento da busca. Também seria interessante utilizar diferentes funções de erro (como erro quadrático médio) ou tratar melhor a presença de outliers nos dados. Por fim, ajustes dinâmicos nos parâmetros do algoritmo, como taxa de crossover e mutação, podem contribuir para uma convergência mais rápida e estável.
 
 ## 🔗 Referências
-**Linguagem C.** *W3 Schools* Disponível em: <https://www.w3schools.com/c/c_files_read.php> Acesso em: 23/03/26.<br>
-**Kato, Rodrigo.** *Algoritmos Genéticos*. Disponível em: <https://bioinfo.com.br/algoritmos-geneticos/>. Acesso em: 02/04/26.
+W3SCHOOLS. **C Files**. Disponível em: https://www.w3schools.com/c. Acesso em: 23 mar. 2026.<br>
+KATO, Rodrigo. **Algoritmos Genéticos**. Disponível em: https://bioinfo.com.br/algoritmos-geneticos/. Acesso em: 02 abr. 2026.
 
 ## 🫱🏽‍🫲🏽 Créditos
 Agradeço ao professor Michael Pires da Silva por disponibilizar o modelo do Makefile e por todas as dúvidas sanadas. Agradeço também a todas as minhas amigas e aos meus amigos que me ajudaram a entender melhor a proposta.
@@ -625,8 +629,5 @@ Agradeço ao professor Michael Pires da Silva por disponibilizar o modelo do Mak
 Autora: Rita Mariê Amaral Siqueira
 
 - Email: (ritamariecajuru@gmail.com)
-- GitHub: (https://github.com/Ritaa-Marie)
-- Linkedin: (https://www.linkedin.com/in/rita-mari%C3%AA-amaral-siqueira-567b74357/?skipRedirect=true)
-
-
-
+- GitHub: [Ritaa-Marie](https://github.com/Ritaa-Marie)
+- LinkedIn: [Rita Mariê](https://www.linkedin.com/in/rita-mari%C3%AA-amaral-siqueira-567b74357/)
